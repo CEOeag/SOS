@@ -25,11 +25,13 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         ImageButton ibutton3 = (ImageButton)findViewById(R.id.imageButton4);
 
         Button button4 = (Button)findViewById(R.id.button4);
+        Button button5 = (Button)findViewById(R.id.button5);
 
         ibutton.setOnClickListener(this);
         ibutton2.setOnClickListener(this);
         ibutton3.setOnClickListener(this);
         button4.setOnClickListener(this);
+        button5.setOnClickListener(this);
     }
 
     @Override
@@ -77,6 +79,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
         }else if(v.getId() == R.id.button4) {
 
             Intent intent = new Intent(MainActivity.this,TransceiverMain.class);
+            startActivity(intent);
+
+        }else if(v.getId() == R.id.button5) {
+
+            Intent intent = new Intent(MainActivity.this,ListMain.class);
             startActivity(intent);
 
         }
