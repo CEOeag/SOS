@@ -35,7 +35,6 @@ import prgc.snct.sos.R;
 
 public class MainActivity extends ActionBarActivity implements View.OnClickListener{
 
-    boolean first;
     String Id, Name;
 
     @Override
@@ -124,11 +123,11 @@ public class MainActivity extends ActionBarActivity implements View.OnClickListe
             Intent intent = new Intent(MainActivity.this,ChartActivity.class);
             startActivity(intent);
 
-        }else if(v.getId() == R.id.button7) {
+/*        }else if(v.getId() == R.id.button7) {
 
             Intent intent = new Intent(MainActivity.this,ListMain.class);
             startActivity(intent);
-
+*/
         }
     }
 }

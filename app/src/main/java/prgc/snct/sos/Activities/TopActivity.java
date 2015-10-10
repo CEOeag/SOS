@@ -60,7 +60,8 @@ public class TopActivity extends ActionBarActivity implements View.OnClickListen
         WifiInfo wifiInfo = wifiManager.getConnectionInfo();
         Id = wifiInfo.getMacAddress(); //Macアドレス取得
 
-        loadData();
+        first = false;
+        //loadData();
 
         if(first) { //初回起動時
             initList();

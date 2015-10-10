@@ -31,6 +31,7 @@ public class GetSOS implements LocationListener, GpsStatus.Listener{
     private static final String url = "jdbc:mysql://160.16.91.195:3306/sos_db";
     private static final String user = "snctprocon2015";
     private static final String pass = "kadai";
+    private static final String Test = "c4:21:c8:c5:a9:78";
     double lat, lng, Lat1r, Lng1r, Latr, Lngr, Latrad, Lngrad;
     public int scount = 0, lcount = 0;
     int ret=0;
@@ -94,7 +95,7 @@ public class GetSOS implements LocationListener, GpsStatus.Listener{
 
                         }
                     }
-
+/*
                     loadList(con);
                     for(int i = 0; i < names.size(); i++) {
                         SQL = "SELECT * from sos_nlist where id = '" + ids.get(i) + "'";
@@ -104,7 +105,7 @@ public class GetSOS implements LocationListener, GpsStatus.Listener{
                         }
                         rs2.close();
                     }
-
+*/
                     rs.close();
                     st.close();
                     connection.close();
@@ -172,8 +173,8 @@ while(ret==0)
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(con);
         Gson gson = new Gson();
         // 保存されているjson文字列を取得
-        String savedNamesString = prefs.getString("ARRAY_NAMES", "");
-        String savedIdString = prefs.getString("ARRAY_ID", "");
+        String savedNamesString = prefs.getString("ARR_NAMES", "");
+        String savedIdString = prefs.getString("ARR_ID", "");
 
         // json文字列をArrayListクラスのインスタンスに変換
         names = new ArrayList<String>();

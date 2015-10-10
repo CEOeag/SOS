@@ -37,70 +37,9 @@ public class TryService extends Service {
     private boolean mThreadActive = true;
 
     private LatLng sosLocation;
-
-    protected Runnable mTask = new Runnable() {
-
-        @Override
-        public void run() {
-            final GetSOS d=new GetSOS(con);
-            lat=d.lat;
-            lng=d.lng;
-            Latr=d.Latr;
-            Lngr=d.Lngr;
-
-            while (mThreadActive) {
-
-                try {
-                    Thread.sleep(5000);
-                } catch (InterruptedException e) {
-
-                    e.printStackTrace();
-                }
-
-
-                mHandler.post(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        if(mThreadActive==true) {
-                            //mCount++;
-                            //showText("Service was bound.");
-
-
-                                scount=d.geter(lat,lng,Latr,Lngr, con);
-                                d.lcount=lcount;
-
-                            if(scount>oldscount&&flag==1) {
-                                sosLocation = d.getSosLocation();
-                                showNotification(TryService.this);
-
-                            }
-                            if(lcount>oldlcount&&flag==1)
-                            {
-                                showNotification2(TryService.this);
-                            }
-                            flag=1;
-
-
-                                oldscount=scount;
-                                oldlcount=lcount;
-
-                        }
-                    }
-                });
-            }
-
-
-            mHandler.post(new Runnable() {
-
-                @Override
-                public void run() {
-                    showText("Thread end");
-                }
-            });
-        }
-    };
     private Thread mThread;
+
+    Runnable mTask;
 
     // ______________________________________________________________________________
     /**
@@ -131,10 +70,10 @@ public class TryService extends Service {
     public int onStartCommand(Intent intent, int flags, int startId) {
         super.onStartCommand(intent, flags, startId);
 
+        startThread();
         this.showText("onStartCommand");
         this.mThread = new Thread(null, mTask, "NortifyingService");
         this.mThread.start();
-
 
         //showNotification(this);
 
@@ -226,6 +165,70 @@ public class TryService extends Service {
 
         mgr.notify(R.layout.activity_service, n);
 
+    }
+
+    private void startThread(){
+        mTask = new Runnable() {
+
+            @Override
+            public void run() {
+                final GetSOS d=new GetSOS(con);
+                lat=d.lat;
+                lng=d.lng;
+                Latr=d.Latr;
+                Lngr=d.Lngr;
+
+                while (mThreadActive) {
+
+                    try {
+                        Thread.sleep(5000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+
+
+                    mHandler.post(new Runnable() {
+
+                        @Override
+                        public void run() {
+                            if(mThreadActive) {
+                                //mCount++;
+                                //showText("Service was bound.");
+
+
+                                scount=d.geter(lat,lng,Latr,Lngr, con);
+                                d.lcount=lcount;
+
+                                if((scount>oldscount)&&flag==1) {
+                                    sosLocation = d.getSosLocation();
+                                    showNotification(TryService.this);
+
+                                }
+                                if((lcount>oldlcount)&&flag==1)
+                                {
+                                    showNotification2(TryService.this);
+                                }
+                                flag=1;
+
+
+                                oldscount=scount;
+                                oldlcount=lcount;
+
+                            }
+                        }
+                    });
+                }
+
+
+                mHandler.post(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        showText("Thread end");
+                    }
+                });
+            }
+        };
     }
 
     //This bar, please choose "service end" behind the tap.

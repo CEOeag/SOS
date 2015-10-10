@@ -32,7 +32,7 @@ public class ActivityService extends Activity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(ActivityService.this, prgc.snct.sos.Activities.TryService.class);
+                Intent intent = new Intent(ActivityService.this, TryService.class);
 
                 startService(intent);
             }
@@ -45,7 +45,7 @@ public class ActivityService extends Activity {
             @Override
             public void onClick(View v) {
 
-                Intent intent = new Intent(ActivityService.this, prgc.snct.sos.Activities.TryService.class);
+                Intent intent = new Intent(ActivityService.this, TryService.class);
                 stopService(intent);
             }
         });
